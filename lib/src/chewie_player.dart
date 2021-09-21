@@ -162,9 +162,9 @@ class ChewieState extends State<Chewie> {
   }
 
   void onEnterFullScreen() {
-    final videoWidth = widget.controller.videoPlayerController.value.size.width;
-    final videoHeight =
-        widget.controller.videoPlayerController.value.size.height;
+    // final videoWidth = widget.controller.videoPlayerController.value.size.width;
+    // final videoHeight =
+    //     widget.controller.videoPlayerController.value.size.height;
 
     if (widget.controller.systemOverlaysOnEnterFullScreen != null) {
       /// Optional user preferred settings
@@ -175,36 +175,42 @@ class ChewieState extends State<Chewie> {
       SystemChrome.setEnabledSystemUIOverlays([]);
     }
 
-    if (widget.controller.deviceOrientationsOnEnterFullScreen != null) {
-      /// Optional user preferred settings
-      SystemChrome.setPreferredOrientations(
-          widget.controller.deviceOrientationsOnEnterFullScreen!);
-    } else {
-      final isLandscapeVideo = videoWidth > videoHeight;
-      final isPortraitVideo = videoWidth < videoHeight;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
 
-      /// Default behavior
-      /// Video w > h means we force landscape
-      if (isLandscapeVideo) {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight,
-        ]);
-      }
+    // if (widget.controller.deviceOrientationsOnEnterFullScreen != null) {
+    //   /// Optional user preferred settings
+    //   SystemChrome.setPreferredOrientations(
+    //       widget.controller.deviceOrientationsOnEnterFullScreen!);
+    // } else {
+    //   final isLandscapeVideo = videoWidth > videoHeight;
+    //   final isPortraitVideo = videoWidth < videoHeight;
 
-      /// Video h > w means we force portrait
-      else if (isPortraitVideo) {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ]);
-      }
+    //   /// Default behavior
+    //   /// Video w > h means we force landscape
+    //   if (isLandscapeVideo) {
+    //     SystemChrome.setPreferredOrientations([
+    //       DeviceOrientation.landscapeLeft,
+    //       DeviceOrientation.landscapeRight,
+    //     ]);
+    //   }
 
-      /// Otherwise if h == w (square video)
-      else {
-        SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-      }
-    }
+    //   /// Video h > w means we force portrait
+    //   else if (isPortraitVideo) {
+    //     SystemChrome.setPreferredOrientations([
+    //       DeviceOrientation.portraitUp,
+    //       DeviceOrientation.portraitDown,
+    //     ]);
+    //   }
+
+    //   /// Otherwise if h == w (square video)
+    //   else {
+    //     SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    //   }
+    // }
   }
 }
 
